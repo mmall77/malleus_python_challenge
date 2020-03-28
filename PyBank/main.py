@@ -25,14 +25,13 @@ with open(company_data, "r") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     header = next(csvreader)
     # for loop to iterate through each row of the cols in the csv file totalProfit iterates
-    # through column index 1 to count the profit/losses and adds 1 to the totalMonths in col
-    #index 0 as it does so.
+    # through column index 1 to count the profit/losses.
     for row in csvreader:
         date = row[0]
         profloss = int(row[1])
         totalProfit += profloss
         totalMonths += 1
-
+        # calculates greatest increase and greatest decrease and avg change.
         change = profloss - previousprofloss
         if totalMonths != 1:
             changes.append(change)
@@ -46,8 +45,8 @@ with open(company_data, "r") as csvfile:
         previousprofloss = profloss
 
 avgChange = int(round(sum(changes)/len(changes), 2))
-#avgMonthlyProfit = int(round(totalProfit/totalMonths, 0))
 
+# results to terminal
 data = f"""
 Total Profit: ${totalProfit}
 Total Months: {totalMonths}
@@ -56,6 +55,7 @@ Greatest Increase: {highestMonth}, ${greatestIncrease}
 greatest Decrease: {lowestMonth}, ${greatestDecrease}"""
 print(data)
 
+# out[ut results to txt file
 output_file = "output.txt"
 with open(output_file, "w") as doc:
     doc.write(data)
